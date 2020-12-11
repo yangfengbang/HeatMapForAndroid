@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 
 import com.ff.heatmap.heatmap.HeatMap;
@@ -28,14 +29,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         imageView = (ImageView) findViewById(R.id.image);
         FloatingActionButton fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         FloatingActionButton fab2 = (FloatingActionButton) findViewById(R.id.fab2);
 
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("HeatMap");
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setTitle("HeatMap");
 
         fab1.setOnClickListener(new View.OnClickListener() {
             @Override
