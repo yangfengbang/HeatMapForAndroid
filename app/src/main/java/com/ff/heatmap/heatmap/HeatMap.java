@@ -1,7 +1,9 @@
 package com.ff.heatmap.heatmap;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.util.Log;
 
 import java.util.Collection;
 
@@ -9,14 +11,35 @@ import java.util.Collection;
  * 热力图
  */
 public class HeatMap {
+    private static final String TAG = "HeatMap";
 
-    private static final double DEFAULT_OPACITY = 0.6;
+    private static final double DEFAULT_OPACITY = 1;
 
     private static final int DEFAULT_RADIUS = 36;
 
+//    private static final Gradient DEFAULT_GRADIENT = new Gradient(
+//            new int[]{Color.TRANSPARENT,
+//                    Color.argb(40, 255, 255, 128),
+//                    Color.argb(80, 255, 255, 128),
+//                    Color.argb(100, 255, 255, 128),
+//                    Color.argb(200, 255, 255, 128),
+//                    Color.argb(80, 255, 159, 0),
+//                    Color.argb(100, 255, 159, 0),
+//                    Color.argb(200, 255, 159, 0),
+//                    Color.argb(100, 255, 128, 0),
+//                    Color.argb(200, 255, 128, 0),
+//                    Color.argb(150, 255, 32, 0),
+//                    Color.argb(200, 255, 32, 0)},
+//            new float[]{0f,0.01f, 0.10f, 0.20f, 0.30f, 0.40f, 0.5f, 0.60f, 0.7f, 0.80f, 0.90f, 1f});
+
     private static final Gradient DEFAULT_GRADIENT = new Gradient(
-            new int[]{Color.TRANSPARENT, Color.BLUE, Color.GREEN, Color.YELLOW, Color.RED},
-            new float[]{0f, 0.25f, 0.55f, 0.85f, 1f});
+            new int[]{Color.TRANSPARENT,
+                    Color.argb(80, 255, 255, 128),
+                    Color.argb(255, 251, 241, 90),
+                    Color.argb(255, 235, 136, 39),
+                    Color.argb(255, 254, 227, 97),
+                    Color.argb(255, 237, 63, 44)},
+            new float[]{0f, 0.001f, 0.25f, 0.50f, 0.75f, 1f});
 
     private static final int MIN_RADIUS = 10;
 
@@ -36,9 +59,9 @@ public class HeatMap {
 
     private double mMaxIntensity;
 
-    private int mWidth;
+    private static int mWidth;
 
-    private int mHeight;
+    private static int mHeight;
 
     private HeatMap(Builder builder) {
         mData = builder.data;
@@ -88,9 +111,9 @@ public class HeatMap {
                 val = grid[x][y];
                 if (val != 0) {
                     xUpperLimit = ((upperLimitW < x + radius) ? upperLimitW : x + radius) + 1;
-                    initial = (lowerLimit > x - radius) ? lowerLimit : x - radius;
+                    initial = (lowerLimit - radius > x - radius) ? lowerLimit - radius : x - radius;
                     for (x2 = initial; x2 < xUpperLimit; x2++) {
-                        intermediate[x2][y] += val * kernel[x2 - (x - radius)];
+                        intermediate[x2 + radius][y + radius] += val * kernel[x2 - (x - radius)];
                     }
                 }
             }
