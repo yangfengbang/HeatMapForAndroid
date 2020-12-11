@@ -183,8 +183,8 @@ public class HeatMap {
             //if you are using LatLng,transform them into screen coordinates
             int bucketX = w.x;
             int bucketY = w.y;
-            if (bucketX < mWidth && bucketX >= 0
-                    && bucketY < mHeight && bucketY >= 0)
+            if (bucketX <= mWidth && bucketX >= 0
+                    && bucketY <= mHeight && bucketY >= 0)
                 intensity[bucketX][bucketY] += w.intensity;
         }
 
