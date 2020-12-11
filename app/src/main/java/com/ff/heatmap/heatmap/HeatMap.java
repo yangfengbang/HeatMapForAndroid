@@ -111,6 +111,7 @@ public class HeatMap {
                 val = grid[x][y];
                 if (val != 0) {
                     xUpperLimit = ((upperLimitW < x + radius) ? upperLimitW : x + radius) + 1;
+                    //解决四个顶点不显示的问题
                     initial = (lowerLimit - radius > x - radius) ? lowerLimit - radius : x - radius;
                     for (x2 = initial; x2 < xUpperLimit; x2++) {
                         intermediate[x2 + radius][y + radius] += val * kernel[x2 - (x - radius)];
